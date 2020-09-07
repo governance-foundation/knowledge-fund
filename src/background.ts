@@ -20,7 +20,7 @@ function createWindow() {
   win = new BrowserWindow({
     width: appconfig.electron.window.width,
     height: appconfig.electron.window.height,
-    title: appconfig.electron.window.title,
+    title: appconfig.productName,
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
