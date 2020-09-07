@@ -1,11 +1,11 @@
 # Knowledge Fund
 
-[![build_status](https://github.com/governance-foundation/git@github.com:governance-foundation/knowledge-fund.git/workflows/Build/release/badge.svg)](https://github.com/governance-foundation/git@github.com:governance-foundation/knowledge-fund.git/actions?workflow=Build/release)
-[![Coverage Status](https://coveralls.io/repos/github/governance-foundation/git@github.com:governance-foundation/knowledge-fund.git/badge.svg?branch=master)](https://coveralls.io/github/governance-foundation/git@github.com:governance-foundation/knowledge-fund.git?branch=master)
-[![github license](https://img.shields.io/github/license/governance-foundation/git@github.com:governance-foundation/knowledge-fund.git)](https://github.com/governance-foundation/git@github.com:governance-foundation/knowledge-fund.git) 
-[![github issues](https://img.shields.io/github/issues/governance-foundation/git@github.com:governance-foundation/knowledge-fund.git)](https://github.com/governance-foundation/git@github.com:governance-foundation/knowledge-fund.git) 
-[![github last commit](https://img.shields.io/github/last-commit/governance-foundation/git@github.com:governance-foundation/knowledge-fund.git)](https://github.com/governance-foundation/git@github.com:governance-foundation/knowledge-fund.git) 
-[![github repo size](https://img.shields.io/github/repo-size/governance-foundation/git@github.com:governance-foundation/knowledge-fund.git)](https://github.com/governance-foundation/git@github.com:governance-foundation/knowledge-fund.git) 
+[![build_status](https://github.com/governance-foundation/knowledge-fund.git/workflows/Build/release/badge.svg)](https://github.com/governance-foundation/knowledge-fund.git/actions?workflow=Build/release)
+[![Coverage Status](https://coveralls.io/repos/github/governance-foundation/knowledge-fund.git/badge.svg?branch=master)](https://coveralls.io/github/governance-foundation/knowledge-fund.git?branch=master)
+[![github license](https://img.shields.io/github/license/governance-foundation/knowledge-fund.git)](https://github.com/governance-foundation/knowledge-fund.git) 
+[![github issues](https://img.shields.io/github/issues/governance-foundation/knowledge-fund.git)](https://github.com/governance-foundation/knowledge-fund.git) 
+[![github last commit](https://img.shields.io/github/last-commit/governance-foundation/knowledge-fund.git)](https://github.com/governance-foundation/knowledge-fund.git) 
+[![github repo size](https://img.shields.io/github/repo-size/governance-foundation/knowledge-fund.git)](https://github.com/governance-foundation/knowledge-fund.git) 
 [![Gitter](https://badges.gitter.im/governance-foundation/community.svg)](https://gitter.im/governance-foundation/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Gitter](https://img.shields.io/badge/forum-Google-orange)](https://groups.google.com/forum/#!forum/governance-foundation)
 
@@ -143,7 +143,7 @@ sudo apt update && sudo apt install -y yarn
 To generate this app from sratch run the following
 
 * Install Vue globally - `npm install -g @vue/cli`
-* Create Vue App `vue create git@github.com:governance-foundation/knowledge-fund.git`
+* Create Vue App `vue create knowledge-fund.git`
   * Please pick a preset:
     * Manually select features
   * Features (All Yes)
