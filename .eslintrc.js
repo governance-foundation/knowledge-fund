@@ -4,9 +4,10 @@ module.exports = {
     node: true
   },
   extends: [
-    "plugin:vue/essential",
+    "airbnb-base",
+    "plugin:vue/strongly-recommended",
     "eslint:recommended",
-    "@vue/typescript/recommended",
+    "@vue/typescript",
     "@vue/prettier",
     "@vue/prettier/@typescript-eslint"
   ],
