@@ -61,16 +61,14 @@ export default {
     notes: [
       { title: "Note 1", flex: 6 },
       { title: "Note 2", flex: 12 },
-      { title: "Note 3", flex: 6 }
-
-    ]
+      { title: "Note 3", flex: 6 },
+    ],
   }),
   components: {},
   computed: {
     theme() {
       return this.$vuetify.theme.dark ? "dark" : "light";
-    }
-  }
+    },
+  },
 };
 </script>
-
