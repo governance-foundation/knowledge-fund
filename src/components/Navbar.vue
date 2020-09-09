@@ -1,33 +1,27 @@
 <template>
   <nav>
+    <GlobalAddDialog @onSave="hideAddNew" @onClose="hideAddNew" />
     <!-- APP BAR -->
     <v-app-bar color="while" dark app class="line">
-      <v-row>
-        <v-col md="auto">
+      <v-row class="d-flex justify-space-between">
+        <v-col md="auto" class="align-self-center flex-grow-0 d-none d-sm-flex">
           <!-- TITLE -->
           <v-toolbar-title class="text-uppercase red--text">
             <span class="font-weight-light">Knowledge</span>
             <span>&nbsp;Fund</span>
           </v-toolbar-title>
-
         </v-col>
-        <v-col md="auto">
+        <v-col md="auto" class="align-self-center flex-grow-1">
           <!-- TITLE SEARCH -->
-          <v-text-field
-            class="mx-4 shrink"
-            id="navbarsearch"
-            flat
-            hide-details
-            label="Search"
-            prepend-inner-icon="search"
-            solo-inverted
-            clearable
-            full-width
-          ></v-text-field>
+          <GlobalSearch
+            @onClear="onSearchClear"
+            @onSearch="onSearch"
+            :search-text="searchText"
+          />
         </v-col>
-        <v-col md="auto">
+        <v-col md="auto" class="align-self-center flex-grow-0 ml-auto">
           <!-- TITLE ADD BUTTON -->
-          <v-btn color="red" dark small absolute right fab>
+          <v-btn color="red" dark small right fab @click="showAddNew">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </v-col>
@@ -44,7 +38,15 @@
       </template> -->
     </v-app-bar>
     <!-- LEFT SIDE NAV -->
-    <v-navigation-drawer v-model="drawer" dark app mini-variant expand-on-hover>
+    <v-navigation-drawer
+      v-model="drawer"
+      dark
+      app
+      mini-variant
+      permanent
+      expand-on-hover
+      class="d-flex"
+    >
       <v-layout fill-height column justify-space-between>
         <!-- LEFT SIDE NAV HEADER -->
         <v-list dense nav class="py-0">
@@ -116,29 +118,70 @@
   </nav>
 </template>
 <script>
+import GlobalAddDialog from "@/components/dialogs/GlobalFullAddNew.vue";
+import GlobalSearch from "@/components/search/GlobalSearch.vue";
+import { mapActions } from "vuex";
+
 export default {
+  components: {
+    GlobalAddDialog,
+    GlobalSearch,
+  },
+  methods: {
+    ...mapActions({
+      showAddNew: "AddNew/showAddNew",
+      hideAddNew: "AddNew/hideAddNew",
+      search: "Search/searchAction",
+    }),
+    onSearch(text) {
+      this.search(text);
+      if (text && this.$route.name != "search") {
+        this.$router.push("search");
+      }
+    },
+    onSearchClear() {
+      // console.log(
+      //   "onSearchClear:> " + this.$store.getters["Search/searchText"]
+      // );
+    },
+  },
+  computed: {
+    shouldShow() {
+      return this.$store.getters["AddNew/shouldShow"];
+    },
+    searchText: {
+      get() {
+        // console.log(
+        //   "searchText get: " + this.$store.getters["Search/searchText"]
+        // );
+        return this.$store.getters["Search/searchText"];
+      },
+      set(text) {
+        // console.log("searchText set: " + text);
+        this.search(text);
+      },
+    },
+  },
   data: () => ({
+    dialog: false,
     drawer: true,
+    isDialogVisibleAddNew: false,
+    newInfo: {},
     nav: [
-      { title: "Files", icon: "mdi-file-multiple", link: "/" },
-      { title: "Search", icon: "mdi-file-search", link: "/search" },
-      { title: "Table of Contents", icon: "mdi-notebook", link: "/toc" },
-      { title: "Nav History", icon: "mdi-history", link: "/history" },
-      { title: "Text Forage", icon: "mdi-carabiner", link: "/forage" },
-      { title: "Bookmarks", icon: "mdi-bookmark-multiple", link: "/bookmarks" },
-      { title: "Text Hightlight", icon: "mdi-marker", link: "/highlight" }
+      { title: "Learn", icon: "school", link: "/learn" },
+      { title: "Question", icon: "question_answer", link: "/search" },
     ],
     settings: [
       { title: "Profile", icon: "mdi-account-circle", link: "/profile" },
-      { title: "Setting", icon: "mdi-cog", link: "/settings" }
-    ]
-  })
+      { title: "Setting", icon: "mdi-cog", link: "/settings" },
+    ],
+  }),
+  mounted() {
+    // console.log("navbar:" + this.$store.getters["Search/searchText"]);
+  },
 };
 </script>
 <style scoped>
-/* /deep/ #navbarsearch{
-    width: 400px;
-} */
 .drawer-header {
   padding: 0px !important;
 }
