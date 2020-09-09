@@ -7,97 +7,53 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    name: "Home",
-    component: Home
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    name: "home",
+    component: Home,
   },
   {
     path: "/settings",
-    name: "Settings",
+    name: "settings",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "settings" */ "../views/Settings.vue")
+      import(
+        /* webpackChunkName: "settings" */ "../views/profile/Settings.vue"
+      ),
+  },
+  {
+    path: "/learn",
+    name: "learn",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "settings" */ "../views/learn/Learn.vue"),
   },
   {
     path: "/profile",
-    name: "Profile",
+    name: "profile",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/Profile.vue")
+      import(/* webpackChunkName: "profile" */ "../views/profile/Profile.vue"),
   },
-  {
-    path: "/bookmarks",
-    name: "Bookmarks",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "bookmarks" */ "../views/Bookmarks.vue")
-  },
-  {
-    path: "/toc",
-    name: "Contents",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "toc" */ "../views/Contents.vue")
-  },
-  {
-    path: "/forage",
-    name: "Forage",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "forage" */ "../views/Forage.vue")
-  },
-  {
-    path: "/highlight",
-    name: "Highlight",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "highlight" */ "../views/Highlight.vue")
-  },
-  {
-    path: "/history",
-    name: "History",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "history" */ "../views/History.vue")
-  }
-  ,
   {
     path: "/search",
-    name: "Search",
+    name: "search",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "search" */ "../views/Search.vue")
-  }
+      import(/* webpackChunkName: "search" */ "../views/query/Search.vue"),
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;
