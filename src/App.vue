@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <Navbar />
-    <v-content>
+    <v-main>
       <router-view></router-view>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
@@ -13,22 +13,20 @@ import Navbar from "@/components/Navbar.vue";
 
 export default Vue.extend({
   name: "App",
-
   components: {
-    Navbar
+    Navbar,
   },
-
   data: () => ({
-    title: "Knowledge Fund"
+    title: "Knowledge Fund",
   }),
   watch: {
     // eslint-disable-next-line
     title: function(val, old) {
       document.title = val;
-    }
+    },
   },
   created() {
     document.title = this.title;
-  }
+  },
 });
 </script>

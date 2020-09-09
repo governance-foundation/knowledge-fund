@@ -8,17 +8,16 @@ Vue.use(Vuetify);
 
 export default new Vuetify({
   icons: {
-    iconfont: "md" || "fa"
+    iconfont: "md" || "fa",
   },
   theme: {
     themes: {
       light: {
-        background: colors.shades.white
+        background: colors.shades.white,
       },
       dark: {
-        background: colors.shades.black
-      }
-    }
-  }
+        background: colors.shades.black,
+      },
+    },
+  },
 });
-
