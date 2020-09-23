@@ -1,25 +1,27 @@
+var path = require("path");
+
 module.exports = {
   transpileDependencies: ["vuetify", "vuex-module-decorators", "vuex-persist"],
   pluginOptions: {
     electronBuilder: {
       builderOptions: {
         directories: {
-          buildResources: "build"
+          buildResources: "build",
         },
         asar: true,
         win: {
-          target: "nsis"
+          target: "nsis",
         },
         mac: {
-          category: "public.app-category.productivity"
+          category: "public.app-category.productivity",
         },
         deb: {
-          packageCategory: "devel"
-        }
+          packageCategory: "devel",
+        },
       },
       linux: {
-        category: "Development"
-      }
-    }
-  }
+        category: "Development",
+      },
+    },
+  },
 };

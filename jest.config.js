@@ -6,9 +6,9 @@ module.exports = {
     "!**/node_modules/**",
     "!<rootDir>/dist_electron/**",
     "!<rootDir>/src/plugins/**",
-    "!<rootDir>/tests/unit/**"
+    "!<rootDir>/tests/unit/**",
   ],
   coverageReporters: ["json", "lcov", "text", "cobertura"],
   snapshotSerializers: ["jest-serializer-vue"],
-  preset: "@vue/cli-plugin-unit-jest/presets/typescript-and-babel"
+  preset: "@vue/cli-plugin-unit-jest/presets/typescript-and-babel",
 };

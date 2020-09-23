@@ -4,7 +4,7 @@
 import spectron from "spectron";
 import { testWithSpectron } from "vue-cli-plugin-electron-builder";
 
-describe("Application launch", function() {
+describe("Application launch", function () {
   jest.setTimeout(300000);
 
   let app;
@@ -26,16 +26,15 @@ describe("Application launch", function() {
         "--enable-automation",
         "--profile-directory=Default",
         "--user-data-dir=./.chrome-user-data",
-        "--remote-debugging-port=9222"
-      ]
-    }).then(instance => {
+        "--remote-debugging-port=9222",
+      ],
+    }).then((instance) => {
       app = instance.app;
       win = app.browserWindow;
       client = app.client;
       stopServe = instance.stopServe;
       //wait for window to appear
       client.waitUntilWindowLoaded();
-
     });
   }, 300000);
 
@@ -56,7 +55,7 @@ describe("Application launch", function() {
     expect((await client.$("h1=Welcome to Vuetify")) != undefined).toBe(true);
   });
 
-  afterAll(function() {
+  afterAll(function () {
     console.log("afterAll");
     if (app && app.isRunning()) {
       return stopServe();
