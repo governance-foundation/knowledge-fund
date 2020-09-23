@@ -58,7 +58,7 @@ describe("Application launch", function () {
   afterAll(function () {
     console.log("afterAll");
     if (app && app.isRunning()) {
-      return stopServe();
+      return true; //stopServe();
     }
   });
 });
