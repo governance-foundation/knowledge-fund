@@ -31,12 +31,17 @@ const store = new Vuex.Store<any>({
   preserveState: true,
 })
 export default class AddNew extends VuexModule {
+  searchTextInput = "";
   searchTextValue = "";
   searchHistory = new Array();
   searchHistoryLength = 100;
 
   get searchText() {
     return this.searchTextValue;
+  }
+
+  get searchInput() {
+    return this.searchTextInput;
   }
 
   @Mutation
@@ -52,9 +57,20 @@ export default class AddNew extends VuexModule {
     this.searchTextValue = text;
   }
 
+  @Mutation
+  setSearchInput(text: string) {
+    this.searchTextInput = text;
+  }
+
   @Action({ rawError: true })
   async searchAction(text: string) {
     this.context.commit("setSearchtext", text);
     return this.searchText;
+  }
+
+  @Action({ rawError: true })
+  async searchInputAction(text: string) {
+    this.context.commit("setSearchInput", text);
+    return this.searchInput;
   }
 }

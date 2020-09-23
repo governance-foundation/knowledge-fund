@@ -7,8 +7,7 @@
         <v-col md="auto" class="align-self-center flex-grow-0 d-none d-sm-flex">
           <!-- TITLE -->
           <v-toolbar-title class="text-uppercase red--text">
-            <span class="font-weight-light">Knowledge</span>
-            <span>&nbsp;Fund</span>
+            <Title />
           </v-toolbar-title>
         </v-col>
         <v-col md="auto" class="align-self-center flex-grow-1">
@@ -16,6 +15,7 @@
           <GlobalSearch
             @onClear="onSearchClear"
             @onSearch="onSearch"
+            @onSearchInput="onSearchInput"
             :search-text="searchText"
           />
         </v-col>
@@ -52,15 +52,13 @@
         <v-list dense nav class="py-0">
           <v-list-item two-line class="drawer-header">
             <v-list-item-avatar>
-              <v-icon color="red">fa-brain</v-icon>
+              <AppIcon />
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title
-                ><span class="font-weight-light">Knowlegde</span>
-                <span>&nbsp;Fund</span>
+              <v-list-item-title>
+                <Title />
               </v-list-item-title>
-              <v-list-item-subtitle>Actions</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
           <!-- LEFT SIDE NAV HEADER DIVIDER -->
@@ -120,24 +118,37 @@
 <script>
 import GlobalAddDialog from "@/components/dialogs/GlobalFullAddNew.vue";
 import GlobalSearch from "@/components/search/GlobalSearch.vue";
+import Title from "@/components/common/Title.vue";
+import AppIcon from "@/components/common/AppIcon.vue";
+
 import { mapActions } from "vuex";
 
 export default {
   components: {
     GlobalAddDialog,
     GlobalSearch,
+    Title,
+    AppIcon,
   },
   methods: {
     ...mapActions({
       showAddNew: "AddNew/showAddNew",
       hideAddNew: "AddNew/hideAddNew",
       search: "Search/searchAction",
+      searchInput: "Search/searchInputAction",
     }),
     onSearch(text) {
-      this.search(text);
-      if (text && this.$route.name != "search") {
-        this.$router.push("search");
-      }
+      // console.log("nav search: " + text);
+      // this.search(text);
+      // this.searchInput("");
+      // if (text && this.$route.name != "search") {
+      //   this.$router.push("search");
+      // }
+      this.$emit("onSearch", text);
+    },
+    onSearchInput(text) {
+      this.$emit("onSearchInput", text);
+      // this.searchInput(text);
     },
     onSearchClear() {
       // console.log(
@@ -149,17 +160,34 @@ export default {
     shouldShow() {
       return this.$store.getters["AddNew/shouldShow"];
     },
-    searchText: {
-      get() {
-        // console.log(
-        //   "searchText get: " + this.$store.getters["Search/searchText"]
-        // );
-        return this.$store.getters["Search/searchText"];
+    // searchText: {
+    //   get() {
+    //     console.log("searchText get: ");
+    //     // console.log(
+    //     //   "searchText get: " + this.$store.getters["Search/searchText"]
+    //     // );
+    //     return this.$store.getters["Search/searchText"];
+    //   },
+    //   set(text) {
+    //     console.log("searchText set: " + text);
+    //     // this.onSearchInput(text);
+    //   },
+    // },
+  },
+  props: {
+    nav: {
+      type: Array,
+      default: () => {
+        return [];
       },
-      set(text) {
-        // console.log("searchText set: " + text);
-        this.search(text);
+      required: false,
+    },
+    settings: {
+      type: Array,
+      default: () => {
+        return [];
       },
+      required: false,
     },
   },
   data: () => ({
@@ -167,14 +195,7 @@ export default {
     drawer: true,
     isDialogVisibleAddNew: false,
     newInfo: {},
-    nav: [
-      { title: "Learn", icon: "school", link: "/learn" },
-      { title: "Question", icon: "question_answer", link: "/search" },
-    ],
-    settings: [
-      { title: "Profile", icon: "mdi-account-circle", link: "/profile" },
-      { title: "Setting", icon: "mdi-cog", link: "/settings" },
-    ],
+    searchText: "",
   }),
   mounted() {
     // console.log("navbar:" + this.$store.getters["Search/searchText"]);

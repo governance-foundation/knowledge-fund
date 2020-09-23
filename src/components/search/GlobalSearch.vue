@@ -2,7 +2,7 @@
   <v-text-field
     v-model="searchTextValue"
     class="mx-4 shrink"
-    id="navbarsearch"
+    ref="search"
     flat
     hide-details
     label="Search"
@@ -10,7 +10,8 @@
     solo-inverted
     clearable
     full-width
-    @click:clear="onClear()"
+    @keypress.enter="onSearch"
+    @click:clear="onClear"
   ></v-text-field>
 </template>
 
@@ -23,14 +24,19 @@ export default {
       required: false,
     },
   },
+  data: () => ({
+    searchTextInput: "",
+  }),
   computed: {
     searchTextValue: {
       get() {
         return this.searchText;
       },
       set(text) {
-        // console.log("onSearch:", text);
-        this.$emit("onSearch", text);
+        if (text != "") {
+          this.searchTextInput = text;
+          this.$emit("onSearchInput", text);
+        }
         return text;
       },
     },
@@ -40,8 +46,11 @@ export default {
   // }),
   methods: {
     onSearch() {
-      // console.log("onSearch:", this.searchTextValue);
-      this.$emit("onSearch", this.searchTextValue);
+      // console.log("onSearch:", this.searchTextInput);
+      this.$emit("onSearch", this.searchTextInput);
+      this.searchTextValue = "";
+      this.searchTextInput = "";
+      this.$refs.search.clearableCallback();
     },
     onClear() {
       // console.log("onClear:", this.searchTextValue);
