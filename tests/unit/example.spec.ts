@@ -1,15 +1,15 @@
 import { shallowMount } from "@vue/test-utils";
-import HelloWorld from "@/components/HelloWorld.vue";
+import Title from "@/components/common/Title.vue";
 
 //load Vuetify to use in tests
 import Vue from "vue";
 import Vuetify from "vuetify";
 Vue.use(Vuetify);
 
-describe("HelloWorld.vue", () => {
+describe("Title.vue", () => {
   it("renders props.msg when passed", () => {
-    const msg = "Welcome to Vuetify";
-    const wrapper = shallowMount(HelloWorld, {
+    const msg = "Knowledge Fund";
+    const wrapper = shallowMount(Title, {
       propsData: { msg },
     });
     expect(wrapper.text()).toMatch(msg);
