@@ -1,6 +1,6 @@
 # Knowledge Fund
 
-[![build_status](https://github.com/governance-foundation/knowledge-fund.git/workflows/build-release/badge.svg)](https://github.com/governance-foundation/knowledge-fund.git/actions?workflow=Build/release)
+[![build_status](https://github.com/governance-foundation/knowledge-fund/workflows/build-release/badge.svg)](https://github.com/governance-foundation/knowledge-fund.git/actions?workflow=Build/release)
 [![Coverage Status](https://coveralls.io/repos/github/governance-foundation/knowledge-fund.git/badge.svg?branch=master)](https://coveralls.io/github/governance-foundation/knowledge-fund.git?branch=master)
 [![github license](https://img.shields.io/github/license/governance-foundation/knowledge-fund.git)](https://github.com/governance-foundation/knowledge-fund.git)
 [![github issues](https://img.shields.io/github/issues/governance-foundation/knowledge-fund.git)](https://github.com/governance-foundation/knowledge-fund.git)
