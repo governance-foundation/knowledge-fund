@@ -8,10 +8,10 @@ Vue.use(Vuetify);
 
 describe("Title.vue", () => {
   it("renders props.msg when passed", () => {
-    const msg = "Knowledge Fund";
+    const msg = "Knowledge";
     const wrapper = shallowMount(Title, {
       propsData: { msg },
     });
-    expect(wrapper.text()).toMatch(msg);
+    expect(wrapper.text()).toContain(msg);
   });
 });
