@@ -1,7 +1,10 @@
 /**
  * @jest-environment node
  */
-import spectron from "spectron";
+import { spectron, Application } from "spectron";
+import { electronPath } from "electron";
+import path from "path";
+
 import { testWithSpectron } from "vue-cli-plugin-electron-builder";
 
 describe("Application launch", function () {
@@ -11,13 +14,29 @@ describe("Application launch", function () {
   let win;
   let client;
   let stopServe;
-
+  let baseDir = path.join(__dirname, "..");
+  console.log("baseDir: " + baseDir);
+  console.log("electronPath: " + electronPath);
   console.log("Starting");
 
-  beforeEach(() => {
+  // app = new Application({
+  //   path: electronPath,
+  //   args: [baseDir],
+  // });
+
+  // beforeAll(function () {
+  //   app.start();
+  // });
+
+  // afterAll(function () {
+  //   app.stop();
+  // });
+
+  beforeAll(() => {
     console.log("beforeEach");
     // Wait for dev server to start
     return testWithSpectron(spectron, {
+      //see https://sites.google.com/a/chromium.org/chromedriver/capabilities
       chromeDriverArgs: [
         "--disable-infobars",
         "--disable-gpu",
@@ -34,6 +53,7 @@ describe("Application launch", function () {
       client = app.client;
       stopServe = instance.stopServe;
       //wait for window to appear
+      // app.start();
       client.waitUntilWindowLoaded();
     });
   }, 300000);
@@ -58,7 +78,10 @@ describe("Application launch", function () {
   afterAll(function () {
     console.log("afterAll");
     if (app && app.isRunning()) {
-      return true; //stopServe();
+      if (stopServe) {
+        return stopServe();
+      }
+      return app.stop();
     }
   });
 });
