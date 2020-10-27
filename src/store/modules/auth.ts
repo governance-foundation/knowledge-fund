@@ -19,7 +19,7 @@ const store = new Vuex.Store<any>({
 });
 @Module({ name: "Auth", store: store, namespaced: true })
 export default class AddNew extends VuexModule {
-  user = "";
+  user = "me";
 
   get username() {
     return this.user;
