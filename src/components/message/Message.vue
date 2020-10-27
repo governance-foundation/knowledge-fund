@@ -4,7 +4,7 @@
       class="message"
       v-for="(message, index) in messages"
       :key="index"
-      :class="{ own: message.user == username }"
+      :class="{ own: message.user == user }"
     >
       <div
         class="username"
@@ -47,7 +47,7 @@ export default {
     "chat-image": Image,
   },
   computed: {
-    username() {
+    user() {
       return this.$store.getters["Auth/username"];
     },
   },

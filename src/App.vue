@@ -52,6 +52,7 @@ export default Vue.extend({
     newInfo: {},
     nav: [
       { title: "Learn", icon: "school", link: "/learn" },
+      { title: "Browse", icon: "account_tree", link: "/browse" },
       { title: "Search", icon: "question_answer", link: "/search" },
     ],
     settings: [

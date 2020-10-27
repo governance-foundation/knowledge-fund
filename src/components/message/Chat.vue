@@ -35,6 +35,8 @@
 import EmojiPicker from "@/components/common/EmojiPicker.vue";
 import Message from "@/components/message/Message.vue";
 
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   data() {
     return {
@@ -55,6 +57,7 @@ export default {
   },
   mounted() {
     this.loadChat();
+    //listen for search commands
     this.$store.subscribeAction((action) => {
       if (action.type == "Search/searchAction") {
         console.log(action.payload);
