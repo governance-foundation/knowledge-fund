@@ -7,7 +7,7 @@ import vuetify from "./plugins/vuetify";
 import VuexWebSocket from "@/plugins/vuex-websocket";
 
 Vue.config.productionTip = false;
-Vue.config.devtools = false;
+Vue.config.devtools = true;
 
 const app = new Vue({
   router,

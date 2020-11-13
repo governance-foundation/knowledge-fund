@@ -54,6 +54,13 @@ export default Vue.extend({
       { title: "Learn", icon: "school", link: "/learn" },
       { title: "Browse", icon: "account_tree", link: "/browse" },
       { title: "Search", icon: "question_answer", link: "/search" },
+      { title: "Link Deployments", icon: "link", link: "/link/deployment" },
+      { title: "Link Applications", icon: "link", link: "/link/application" },
+      {
+        title: "Diagram Applications",
+        icon: "link",
+        link: "/diagram/application",
+      },
     ],
     settings: [
       { title: "Profile", icon: "mdi-account-circle", link: "/profile" },

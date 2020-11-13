@@ -112,7 +112,8 @@ export default {
   computed: {
     filter() {
       return this.caseSensitive
-        ? (item, search, textKey) => item[textKey].indexOf(search) > -1
+        ? (item: any, search: any, textKey: any) =>
+            item[textKey].indexOf(search) > -1
         : undefined;
     },
   },

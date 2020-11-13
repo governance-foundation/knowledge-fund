@@ -56,12 +56,22 @@ export default {
     },
   },
   mounted() {
+    console.log("chat loading");
     this.loadChat();
     //listen for search commands
     this.$store.subscribeAction((action) => {
       if (action.type == "Search/searchAction") {
+        console.log("subscribeAction: Search/searchAction");
         console.log(action.payload);
         this.setAndSendMessage(action.payload);
+      }
+    });
+    //listen for incoming messages
+    this.$store.subscribeAction((action) => {
+      if (action.type == "Message/messageRecieve") {
+        console.log("subscribeAction: Message/messageRecieve");
+        console.log(action.payload);
+        this.onNewMessageAdded(action.payload, true);
       }
     });
   },
@@ -73,27 +83,29 @@ export default {
     messages() {
       return this.chatMessages;
     },
-    username() {
+    user() {
       return this.$store.getters["Auth/username"];
     },
     onNewMessageAdded() {
       const that = this;
-      let onNewMessageAdded = function (snapshot, newMessage = true) {
-        let message = snapshot.val();
-        message.key = snapshot.key;
+      let onNewMessageAdded = function (message, newMessage = true) {
         /*eslint-disable */
-          var urlPattern = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
-          /*eslint-enable */
-        message.content = message.content
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;")
-          .replace(/'/g, "&#039;");
-        message.content = message.content.replace(
-          urlPattern,
-          "<a href='$1'>$1</a>"
-        );
+        var urlPattern = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
+        /*eslint-enable */
+        if (message.content) {
+          //fix html in message
+          message.content = message.content
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+          //fix urls in message
+          message.content = message.content.replace(
+            urlPattern,
+            "<a href='$1'>$1</a>"
+          );
+        }
         if (!newMessage) {
           that.chatMessages.unshift(that.processMessage(message));
           that.scrollTo();
@@ -108,25 +120,30 @@ export default {
   watch: {
     //(newId, oldId)
     "$route.params.id"() {
+      console.log("$route.params.id");
       this.currentRef.off("child_added", this.onNewMessageAdded);
       this.loadChat();
     },
   },
   methods: {
+    ...mapActions({
+      showAddNew: "AddNew/showAddNew",
+      hideAddNew: "AddNew/hideAddNew",
+      search: "Search/searchAction",
+      searchInput: "Search/searchInputAction",
+      messageSend: "Message/messageSend",
+    }),
+    ...mapGetters({
+      messageList: "Message/messageList",
+    }),
     loadChat() {
       // this.totalChatHeight = this.$refs.chatContainer.scrollHeight;
-      // this.loading = false;
-      // if (this.id !== undefined) {
-      //   this.chatMessages = [];
-      //   let chatID = this.id;
-      //   this.currentRef = firebase
-      //     .database()
-      //     .ref("messages")
-      //     .child(chatID)
-      //     .child("messages")
-      //     .limitToLast(20);
-      //   this.currentRef.on("child_added", this.onNewMessageAdded);
-      // }
+      this.loading = true;
+      const that = this;
+      this.messageList().forEach(function (child) {
+        that.onNewMessageAdded(child, false);
+      });
+      this.loading = false;
     },
     onScroll() {
       let scrollValue = this.$refs.chatContainer.scrollTop;
@@ -134,33 +151,11 @@ export default {
       if (scrollValue < 100 && !this.loading) {
         this.totalChatHeight = this.$refs.chatContainer.scrollHeight;
         this.loading = true;
-        // let chatID = this.id;
         let currentTopMessage = this.chatMessages[0];
         if (currentTopMessage === undefined) {
           this.loading = false;
           return;
         }
-        // firebase
-        //   .database()
-        //   .ref("messages")
-        //   .child(chatID)
-        //   .child("messages")
-        //   .orderByKey()
-        //   .endAt(currentTopMessage.key)
-        //   .limitToLast(20)
-        //   .once("value")
-        //   .then(function (snapshot) {
-        //     let tempArray = [];
-        //     snapshot.forEach(function (item) {
-        //       tempArray.push(item);
-        //     });
-        //     if (tempArray[0].key === tempArray[1].key) return;
-        //     tempArray.reverse();
-        //     tempArray.forEach(function (child) {
-        //       that.onNewMessageAdded(child, false);
-        //     });
-        //     that.loading = false;
-        //   });
       }
     },
     processMessage(message) {
@@ -193,15 +188,16 @@ export default {
         //   date: new Date().toString(),
         //   chatID: this.id,
         // });
-        this.onNewMessageAdded(
-          {
-            key: new Date().getTime(),
-            val: () => {
-              return { content: this.content };
-            },
-          },
-          true
-        );
+        let message = {
+          user: this.user,
+          content: this.content,
+          date: new Date().getTime(),
+          chatID: this.id,
+          key: new Date().getTime(),
+          echo: true,
+        };
+        this.messageSend(message);
+        this.onNewMessageAdded(message, true);
         this.content = "";
         this.emojiPanel = false;
       }

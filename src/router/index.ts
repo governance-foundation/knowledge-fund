@@ -57,6 +57,48 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(/* webpackChunkName: "search" */ "../views/query/Search.vue"),
   },
+  {
+    path: "/link/deployment",
+    name: "deployment",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "deployment" */ "../views/relationship/Deployment.vue"
+      ),
+  },
+  {
+    path: "/link/application",
+    name: "application",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "application" */ "../views/relationship/Application.vue"
+      ),
+  },
+  {
+    path: "/diagram/application",
+    name: "diagram_application",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "diagram_application" */ "../views/diagram/Application.vue"
+      ),
+  },
+  // {
+  //   path: "/diagram/deployment",
+  //   name: "diagram_deployment",
+  //   // route level code-splitting
+  //   // this generates a separate chunk (about.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () =>
+  //     import(/* webpackChunkName: "diagram_application" */ "../views/diagram/Deployment.vue"),
+  // },
 ];
 
 const router = new VueRouter({
